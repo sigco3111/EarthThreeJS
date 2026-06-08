@@ -8,7 +8,9 @@ function App() {
   // Earth params
   const [cloudSpeed, setCloudSpeed] = useState(0.0003);
   const [cloudOpacity, setCloudOpacity] = useState(0.65);
+  const [cloudDarkOpacity, setCloudDarkOpacity] = useState(0.0);
   const [atmosphereOpacity, setAtmosphereOpacity] = useState(0.7);
+  const [atmosphereDarkOpacity, setAtmosphereDarkOpacity] = useState(0.0);
   const [atmosphereFresnel, setAtmosphereFresnel] = useState(3.5);
   const [atmosphereIntensity, setAtmosphereIntensity] = useState(1.8);
   const [atmosphereColor, setAtmosphereColor] = useState('#4a9eff');
@@ -65,7 +67,9 @@ function App() {
         <EarthScene
           cloudSpeed={cloudSpeed}
           cloudOpacity={cloudOpacity}
+          cloudDarkOpacity={cloudDarkOpacity}
           atmosphereOpacity={atmosphereOpacity}
+          atmosphereDarkOpacity={atmosphereDarkOpacity}
           atmosphereFresnel={atmosphereFresnel}
           atmosphereIntensity={atmosphereIntensity}
           atmosphereColor={atmosphereColor}
@@ -140,8 +144,12 @@ function App() {
           setCloudSpeed={setCloudSpeed}
           cloudOpacity={cloudOpacity}
           setCloudOpacity={setCloudOpacity}
+          cloudDarkOpacity={cloudDarkOpacity}
+          setCloudDarkOpacity={setCloudDarkOpacity}
           atmosphereOpacity={atmosphereOpacity}
           setAtmosphereOpacity={setAtmosphereOpacity}
+          atmosphereDarkOpacity={atmosphereDarkOpacity}
+          setAtmosphereDarkOpacity={setAtmosphereDarkOpacity}
           atmosphereFresnel={atmosphereFresnel}
           setAtmosphereFresnel={setAtmosphereFresnel}
           atmosphereIntensity={atmosphereIntensity}

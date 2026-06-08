@@ -7,8 +7,12 @@ interface ControlPanelProps {
   setCloudSpeed: (v: number) => void;
   cloudOpacity: number;
   setCloudOpacity: (v: number) => void;
+  cloudDarkOpacity: number;
+  setCloudDarkOpacity: (v: number) => void;
   atmosphereOpacity: number;
   setAtmosphereOpacity: (v: number) => void;
+  atmosphereDarkOpacity: number;
+  setAtmosphereDarkOpacity: (v: number) => void;
   atmosphereFresnel: number;
   setAtmosphereFresnel: (v: number) => void;
   atmosphereIntensity: number;
@@ -145,12 +149,20 @@ export function ControlPanel(props: ControlPanelProps) {
               <div className="control-divider" />
               <div className="section-title">Atmosphere / Ozone</div>
               <SliderControl
-                label="Opacity"
+                label="Lit Opacity"
                 value={props.atmosphereOpacity}
                 min={0}
                 max={1}
                 step={0.05}
                 onChange={props.setAtmosphereOpacity}
+              />
+              <SliderControl
+                label="Dark Opacity"
+                value={props.atmosphereDarkOpacity}
+                min={0}
+                max={1}
+                step={0.05}
+                onChange={props.setAtmosphereDarkOpacity}
               />
               <SliderControl
                 label="Fresnel Power"
@@ -177,12 +189,20 @@ export function ControlPanel(props: ControlPanelProps) {
               <div className="control-divider" />
               <div className="section-title">Clouds</div>
               <SliderControl
-                label="Opacity"
+                label="Lit Opacity"
                 value={props.cloudOpacity}
                 min={0}
                 max={1}
                 step={0.05}
                 onChange={props.setCloudOpacity}
+              />
+              <SliderControl
+                label="Dark Opacity"
+                value={props.cloudDarkOpacity}
+                min={0}
+                max={1}
+                step={0.05}
+                onChange={props.setCloudDarkOpacity}
               />
               <SliderControl
                 label="Speed"

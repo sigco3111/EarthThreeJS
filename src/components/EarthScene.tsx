@@ -13,7 +13,9 @@ import { CinematicCamera } from './CinematicCamera';
 interface EarthSceneProps {
   cloudSpeed: number;
   cloudOpacity: number;
+  cloudDarkOpacity: number;
   atmosphereOpacity: number;
+  atmosphereDarkOpacity: number;
   atmosphereFresnel: number;
   atmosphereIntensity: number;
   atmosphereColor: string;
@@ -54,14 +56,21 @@ export function EarthScene(props: EarthSceneProps) {
       <Earth sunDirection={sunDirection} sunIntensity={props.sunIntensity} sunColor={props.sunColor} />
 
       {/* Layer 2: Cloud layer (cloud texture as opacity mask on separate sphere) */}
-      <Clouds speed={props.cloudSpeed} opacity={props.cloudOpacity} />
+      <Clouds 
+        speed={props.cloudSpeed} 
+        opacity={props.cloudOpacity} 
+        darkOpacity={props.cloudDarkOpacity}
+        sunDirection={sunDirection}
+      />
 
       {/* Layer 3: Ozone / atmosphere glow (fresnel rim glow) */}
       <Atmosphere
         opacity={props.atmosphereOpacity}
+        darkOpacity={props.atmosphereDarkOpacity}
         fresnelPower={props.atmosphereFresnel}
         intensity={props.atmosphereIntensity}
         color={props.atmosphereColor}
+        sunDirection={sunDirection}
       />
 
       {/* Background stars */}
