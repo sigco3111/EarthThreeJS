@@ -477,6 +477,15 @@ body {
 }
 
 /* ---- Cinematic Overlay ---- */
+#cinematic-fade-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .cinematic-overlay {
   position: fixed;
   inset: 0;

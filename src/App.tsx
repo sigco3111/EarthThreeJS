@@ -100,6 +100,9 @@ function App() {
         />
       </Canvas>
 
+      {/* Screen fade overlay for GSAP transitions */}
+      <div id="cinematic-fade-overlay"></div>
+
       {/* Title Screen Overlay */}
       {showTitle && (
         <div className="title-overlay">
