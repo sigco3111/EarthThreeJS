@@ -48,6 +48,10 @@ const sunGlowFragment = `
     
     float alpha = clamp(totalGlow, 0.0, 1.0);
     
+    // Smoothly fade to 0 before the edge of the square plane
+    float edgeFade = smoothstep(1.0, 0.8, dist);
+    alpha *= edgeFade;
+    
     gl_FragColor = vec4(finalColor, alpha);
   }
 `;
