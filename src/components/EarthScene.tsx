@@ -23,6 +23,8 @@ interface EarthSceneProps {
   sunIntensity: number;
   sunColor: string;
   sunSize: number;
+  earthDarkSideBrightness: number;
+  earthSpeed: number;
   bloomIntensity: number;
   bloomThreshold: number;
   bloomRadius: number;
@@ -53,7 +55,13 @@ export function EarthScene(props: EarthSceneProps) {
       />
 
       {/* Layer 1: Earth surface (day map + emissive night lights + normal + specular) */}
-      <Earth sunDirection={sunDirection} sunIntensity={props.sunIntensity} sunColor={props.sunColor} />
+      <Earth 
+        sunDirection={sunDirection} 
+        sunIntensity={props.sunIntensity} 
+        sunColor={props.sunColor}
+        darkSideBrightness={props.earthDarkSideBrightness}
+        rotationSpeed={props.earthSpeed}
+      />
 
       {/* Layer 2: Cloud layer (cloud texture as opacity mask on separate sphere) */}
       <Clouds 

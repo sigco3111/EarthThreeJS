@@ -28,6 +28,10 @@ interface ControlPanelProps {
   setSunColor: (v: string) => void;
   sunSize: number;
   setSunSize: (v: number) => void;
+  earthDarkSideBrightness: number;
+  setEarthDarkSideBrightness: (v: number) => void;
+  earthSpeed: number;
+  setEarthSpeed: (v: number) => void;
   // Post-processing
   bloomIntensity: number;
   setBloomIntensity: (v: number) => void;
@@ -139,6 +143,24 @@ export function ControlPanel(props: ControlPanelProps) {
                 max={40}
                 step={1}
                 onChange={props.setSunSize}
+              />
+              <SliderControl
+                label="Earth Speed"
+                value={props.earthSpeed}
+                min={0}
+                max={0.005}
+                step={0.0001}
+                onChange={props.setEarthSpeed}
+                format={(v) => v.toFixed(4)}
+              />
+              <SliderControl
+                label="Dark Side Vis."
+                value={props.earthDarkSideBrightness}
+                min={0}
+                max={0.1}
+                step={0.001}
+                onChange={props.setEarthDarkSideBrightness}
+                format={(v) => v.toFixed(3)}
               />
               <div className="control-group">
                 <div className="color-controls">

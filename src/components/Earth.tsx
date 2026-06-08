@@ -6,6 +6,8 @@ interface EarthProps {
   sunDirection: THREE.Vector3;
   sunIntensity: number;
   sunColor: string;
+  darkSideBrightness: number;
+  rotationSpeed: number;
 }
 
 const earthVertexShader = `
@@ -30,6 +32,7 @@ const earthFragmentShader = `
   uniform vec3 uSunDir;
   uniform float uSunIntensity;
   uniform vec3 uSunColor;
+  uniform float uDarkSideBrightness;
 
   varying vec2 vUv;
   varying vec3 vNormalW;
@@ -82,13 +85,13 @@ const earthFragmentShader = `
     finalColor += uSunColor * specular * dayFactor;
 
     // Slight ambient so dark side isn't pure black
-    finalColor += dayColor * 0.012;
+    finalColor += dayColor * uDarkSideBrightness;
 
     gl_FragColor = vec4(finalColor, 1.0);
   }
 `;
 
-export function Earth({ sunDirection, sunIntensity, sunColor }: EarthProps) {
+export function Earth({ sunDirection, sunIntensity, sunColor, darkSideBrightness, rotationSpeed }: EarthProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -112,13 +115,18 @@ export function Earth({ sunDirection, sunIntensity, sunColor }: EarthProps) {
     uSunDir: { value: sunDirection.clone().normalize() },
     uSunIntensity: { value: sunIntensity },
     uSunColor: { value: new THREE.Color(sunColor) },
-  }), [dayMap, nightMap, normalMap, specularMap, sunDirection, sunIntensity, sunColor]);
+    uDarkSideBrightness: { value: darkSideBrightness },
+  }), [dayMap, nightMap, normalMap, specularMap, sunDirection, sunIntensity, sunColor, darkSideBrightness]);
 
   useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += rotationSpeed;
+    }
     if (matRef.current) {
       matRef.current.uniforms.uSunDir.value.copy(sunDirection).normalize();
       matRef.current.uniforms.uSunIntensity.value = sunIntensity;
       matRef.current.uniforms.uSunColor.value.set(sunColor);
+      matRef.current.uniforms.uDarkSideBrightness.value = darkSideBrightness;
     }
   });
 

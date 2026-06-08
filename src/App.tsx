@@ -20,6 +20,8 @@ function App() {
   const [sunIntensity, setSunIntensity] = useState(2.0);
   const [sunColor, setSunColor] = useState('#fff5e6');
   const [sunSize, setSunSize] = useState(15.0);
+  const [earthDarkSideBrightness, setEarthDarkSideBrightness] = useState(0.012);
+  const [earthSpeed, setEarthSpeed] = useState(0.0001);
 
   // Post-processing
   const [bloomIntensity, setBloomIntensity] = useState(1.5);
@@ -77,6 +79,8 @@ function App() {
           sunIntensity={sunIntensity}
           sunColor={sunColor}
           sunSize={sunSize}
+          earthDarkSideBrightness={earthDarkSideBrightness}
+          earthSpeed={earthSpeed}
           bloomIntensity={bloomIntensity}
           bloomThreshold={bloomThreshold}
           bloomRadius={bloomRadius}
@@ -164,6 +168,10 @@ function App() {
           setSunColor={setSunColor}
           sunSize={sunSize}
           setSunSize={setSunSize}
+          earthDarkSideBrightness={earthDarkSideBrightness}
+          setEarthDarkSideBrightness={setEarthDarkSideBrightness}
+          earthSpeed={earthSpeed}
+          setEarthSpeed={setEarthSpeed}
           bloomIntensity={bloomIntensity}
           setBloomIntensity={setBloomIntensity}
           bloomThreshold={bloomThreshold}
