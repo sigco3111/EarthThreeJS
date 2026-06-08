@@ -21,7 +21,12 @@ function App() {
   const [sunColor, setSunColor] = useState('#fff5e6');
   const [sunSize, setSunSize] = useState(15.0);
   const [earthDarkSideBrightness, setEarthDarkSideBrightness] = useState(0.012);
+  const [earthNightLights, setEarthNightLights] = useState(1.8);
   const [earthSpeed, setEarthSpeed] = useState(0.0001);
+
+  // Environment
+  const [spaceColor, setSpaceColor] = useState('#000005');
+  const [starsCount, setStarsCount] = useState(6000);
 
   // Post-processing
   const [bloomIntensity, setBloomIntensity] = useState(1.5);
@@ -65,7 +70,7 @@ function App() {
         }}
         dpr={[1, 2]}
       >
-        <color attach="background" args={['#000005']} />
+        <color attach="background" args={[spaceColor]} />
         <EarthScene
           cloudSpeed={cloudSpeed}
           cloudOpacity={cloudOpacity}
@@ -80,7 +85,9 @@ function App() {
           sunColor={sunColor}
           sunSize={sunSize}
           earthDarkSideBrightness={earthDarkSideBrightness}
+          earthNightLights={earthNightLights}
           earthSpeed={earthSpeed}
+          starsCount={starsCount}
           bloomIntensity={bloomIntensity}
           bloomThreshold={bloomThreshold}
           bloomRadius={bloomRadius}
@@ -170,8 +177,14 @@ function App() {
           setSunSize={setSunSize}
           earthDarkSideBrightness={earthDarkSideBrightness}
           setEarthDarkSideBrightness={setEarthDarkSideBrightness}
+          earthNightLights={earthNightLights}
+          setEarthNightLights={setEarthNightLights}
           earthSpeed={earthSpeed}
           setEarthSpeed={setEarthSpeed}
+          spaceColor={spaceColor}
+          setSpaceColor={setSpaceColor}
+          starsCount={starsCount}
+          setStarsCount={setStarsCount}
           bloomIntensity={bloomIntensity}
           setBloomIntensity={setBloomIntensity}
           bloomThreshold={bloomThreshold}

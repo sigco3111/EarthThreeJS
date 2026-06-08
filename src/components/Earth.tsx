@@ -7,6 +7,7 @@ interface EarthProps {
   sunIntensity: number;
   sunColor: string;
   darkSideBrightness: number;
+  nightLightsIntensity: number;
   rotationSpeed: number;
 }
 
@@ -33,6 +34,7 @@ const earthFragmentShader = `
   uniform float uSunIntensity;
   uniform vec3 uSunColor;
   uniform float uDarkSideBrightness;
+  uniform float uNightLightsIntensity;
 
   varying vec2 vUv;
   varying vec3 vNormalW;
@@ -68,7 +70,7 @@ const earthFragmentShader = `
     vec3 nightColor = texture2D(tNight, vUv).rgb;
 
     // Boost city lights for cinematic look
-    nightColor *= vec3(1.2, 0.95, 0.7) * 1.8;
+    nightColor *= vec3(1.2, 0.95, 0.7) * uNightLightsIntensity;
 
     // Diffuse lighting on the day side — scaled by sun intensity and color
     float diffuse = max(NdotL, 0.0);
@@ -91,7 +93,7 @@ const earthFragmentShader = `
   }
 `;
 
-export function Earth({ sunDirection, sunIntensity, sunColor, darkSideBrightness, rotationSpeed }: EarthProps) {
+export function Earth({ sunDirection, sunIntensity, sunColor, darkSideBrightness, nightLightsIntensity, rotationSpeed }: EarthProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -116,7 +118,8 @@ export function Earth({ sunDirection, sunIntensity, sunColor, darkSideBrightness
     uSunIntensity: { value: sunIntensity },
     uSunColor: { value: new THREE.Color(sunColor) },
     uDarkSideBrightness: { value: darkSideBrightness },
-  }), [dayMap, nightMap, normalMap, specularMap, sunDirection, sunIntensity, sunColor, darkSideBrightness]);
+    uNightLightsIntensity: { value: nightLightsIntensity },
+  }), [dayMap, nightMap, normalMap, specularMap, sunDirection, sunIntensity, sunColor, darkSideBrightness, nightLightsIntensity]);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -127,6 +130,7 @@ export function Earth({ sunDirection, sunIntensity, sunColor, darkSideBrightness
       matRef.current.uniforms.uSunIntensity.value = sunIntensity;
       matRef.current.uniforms.uSunColor.value.set(sunColor);
       matRef.current.uniforms.uDarkSideBrightness.value = darkSideBrightness;
+      matRef.current.uniforms.uNightLightsIntensity.value = nightLightsIntensity;
     }
   });
 

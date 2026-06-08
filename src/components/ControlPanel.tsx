@@ -30,8 +30,14 @@ interface ControlPanelProps {
   setSunSize: (v: number) => void;
   earthDarkSideBrightness: number;
   setEarthDarkSideBrightness: (v: number) => void;
+  earthNightLights: number;
+  setEarthNightLights: (v: number) => void;
   earthSpeed: number;
   setEarthSpeed: (v: number) => void;
+  spaceColor: string;
+  setSpaceColor: (v: string) => void;
+  starsCount: number;
+  setStarsCount: (v: number) => void;
   // Post-processing
   bloomIntensity: number;
   setBloomIntensity: (v: number) => void;
@@ -162,6 +168,14 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setEarthDarkSideBrightness}
                 format={(v) => v.toFixed(2)}
               />
+              <SliderControl
+                label="Night Lights"
+                value={props.earthNightLights}
+                min={0}
+                max={10}
+                step={0.1}
+                onChange={props.setEarthNightLights}
+              />
               <div className="control-group">
                 <div className="color-controls">
                   <ColorPicker label="Sun Color" value={props.sunColor} onChange={props.setSunColor} />
@@ -240,6 +254,21 @@ export function ControlPanel(props: ControlPanelProps) {
 
           {activeTab === 'effects' && (
             <div className="tab-content">
+              <div className="section-title">Environment</div>
+              <div className="control-group">
+                <div className="color-controls">
+                  <ColorPicker label="Space Color" value={props.spaceColor} onChange={props.setSpaceColor} />
+                </div>
+              </div>
+              <SliderControl
+                label="Stars Count"
+                value={props.starsCount}
+                min={0}
+                max={20000}
+                step={100}
+                onChange={props.setStarsCount}
+              />
+              <div className="control-divider" />
               <div className="section-title">Bloom</div>
               <SliderControl
                 label="Intensity"

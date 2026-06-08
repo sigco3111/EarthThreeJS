@@ -24,7 +24,9 @@ interface EarthSceneProps {
   sunColor: string;
   sunSize: number;
   earthDarkSideBrightness: number;
+  earthNightLights: number;
   earthSpeed: number;
+  starsCount: number;
   bloomIntensity: number;
   bloomThreshold: number;
   bloomRadius: number;
@@ -60,6 +62,7 @@ export function EarthScene(props: EarthSceneProps) {
         sunIntensity={props.sunIntensity} 
         sunColor={props.sunColor}
         darkSideBrightness={props.earthDarkSideBrightness}
+        nightLightsIntensity={props.earthNightLights}
         rotationSpeed={props.earthSpeed}
       />
 
@@ -82,7 +85,7 @@ export function EarthScene(props: EarthSceneProps) {
       />
 
       {/* Background stars */}
-      <Stars radius={100} depth={50} count={6000} factor={4} saturation={0} fade speed={0.5} />
+      <Stars radius={100} depth={50} count={props.starsCount} factor={4} saturation={0} fade speed={0.5} />
 
       {/* Camera controls - disabled during cinematic mode */}
       {!props.cinematicMode && (
