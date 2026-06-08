@@ -1,8 +1,8 @@
 export const CINEMATIC_PATHS = [
-  { name: 'Orbit Earth', duration: 15 },
-  { name: 'Sunrise Reveal', duration: 12 },
-  { name: 'Nightside City Lights', duration: 10 },
-  { name: 'Distant Approach', duration: 8 }
+  { name: 'Orbit Earth', duration: 30 },
+  { name: 'Sunrise Reveal', duration: 15 },
+  { name: 'Nightside City Lights', duration: 12 },
+  { name: 'Distant Approach', duration: 10 }
 ];
 
 interface CinematicCameraProps {
@@ -61,14 +61,16 @@ export function CinematicCamera({ active, currentPath, onPathChange, onEnd, setD
         camera.lookAt(0, 0, 0);
         break;
       case 'Sunrise Reveal':
-        // Start behind earth, move to side as sun comes up
+        // Arc around the terminator line, staying safely away from the surface
+        const srAngle = Math.PI * 1.2 - progress * Math.PI * 0.5;
+        const srDist = 2.2 - progress * 0.4;
         camera.position.set(
-          -2 + progress * 4,
-          0,
-          -2 + progress * 4
+          Math.sin(srAngle) * srDist,
+          -0.5 + progress,
+          Math.cos(srAngle) * srDist
         );
         camera.lookAt(0, 0, 0);
-        if (setDayNightProgress) setDayNightProgress(progress);
+        if (setDayNightProgress) setDayNightProgress(0.4 + progress * 0.2); // Animate sun rising over horizon
         break;
       case 'Nightside City Lights':
         camera.position.set(
