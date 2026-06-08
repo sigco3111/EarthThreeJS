@@ -51,7 +51,7 @@ export function EarthScene(props: EarthSceneProps) {
       />
 
       {/* Layer 1: Earth surface (day map + emissive night lights + normal + specular) */}
-      <Earth sunDirection={sunDirection} sunIntensity={props.sunIntensity} />
+      <Earth sunDirection={sunDirection} sunIntensity={props.sunIntensity} sunColor={props.sunColor} />
 
       {/* Layer 2: Cloud layer (cloud texture as opacity mask on separate sphere) */}
       <Clouds speed={props.cloudSpeed} opacity={props.cloudOpacity} />

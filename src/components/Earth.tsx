@@ -5,6 +5,7 @@ import * as THREE from 'three';
 interface EarthProps {
   sunDirection: THREE.Vector3;
   sunIntensity: number;
+  sunColor: string;
 }
 
 const earthVertexShader = `
@@ -28,6 +29,7 @@ const earthFragmentShader = `
   uniform sampler2D tNormal;
   uniform vec3 uSunDir;
   uniform float uSunIntensity;
+  uniform vec3 uSunColor;
 
   varying vec2 vUv;
   varying vec3 vNormalW;
@@ -65,11 +67,11 @@ const earthFragmentShader = `
     // Boost city lights for cinematic look
     nightColor *= vec3(1.2, 0.95, 0.7) * 1.8;
 
-    // Diffuse lighting on the day side — scaled by sun intensity
+    // Diffuse lighting on the day side — scaled by sun intensity and color
     float diffuse = max(NdotL, 0.0);
-    vec3 litDay = dayColor * (0.06 + diffuse * uSunIntensity);
+    vec3 litDay = dayColor * (0.06 + diffuse * uSunIntensity) * uSunColor;
 
-    // Specular (ocean glint) — also scaled by sun intensity
+    // Specular (ocean glint) — also scaled by sun intensity and color
     float spec = texture2D(tSpecular, vUv).r;
     vec3 H = normalize(L + V);
     float specAngle = max(dot(N, H), 0.0);
@@ -77,7 +79,7 @@ const earthFragmentShader = `
 
     // Final compositing
     vec3 finalColor = mix(nightColor, litDay, dayFactor);
-    finalColor += vec3(1.0, 0.95, 0.85) * specular * dayFactor;
+    finalColor += uSunColor * specular * dayFactor;
 
     // Slight ambient so dark side isn't pure black
     finalColor += dayColor * 0.012;
@@ -86,7 +88,7 @@ const earthFragmentShader = `
   }
 `;
 
-export function Earth({ sunDirection, sunIntensity }: EarthProps) {
+export function Earth({ sunDirection, sunIntensity, sunColor }: EarthProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -109,12 +111,14 @@ export function Earth({ sunDirection, sunIntensity }: EarthProps) {
     tSpecular: { value: specularMap },
     uSunDir: { value: sunDirection.clone().normalize() },
     uSunIntensity: { value: sunIntensity },
-  }), [dayMap, nightMap, normalMap, specularMap, sunDirection, sunIntensity]);
+    uSunColor: { value: new THREE.Color(sunColor) },
+  }), [dayMap, nightMap, normalMap, specularMap, sunDirection, sunIntensity, sunColor]);
 
   useFrame(() => {
     if (matRef.current) {
       matRef.current.uniforms.uSunDir.value.copy(sunDirection).normalize();
       matRef.current.uniforms.uSunIntensity.value = sunIntensity;
+      matRef.current.uniforms.uSunColor.value.set(sunColor);
     }
   });
 
