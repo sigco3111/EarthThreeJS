@@ -26,33 +26,22 @@ const sunGlowFragment = `
     vec2 center = vUv - 0.5;
     float dist = length(center) * 2.0;
     
-    // Bright white core
-    float core = 1.0 - smoothstep(0.0, 0.12, dist);
+    // Bright white core - much sharper for a realistic vacuum sun
+    float core = 1.0 - smoothstep(0.0, 0.05, dist);
     
-    // Inner glow — tight falloff
-    float innerGlow = exp(-dist * 5.0) * 0.9;
+    // Tight inner glow just to soften the edge slightly for the Bloom pass
+    float innerGlow = exp(-dist * 8.0) * 0.5;
     
-    // Outer glow — soft wide falloff
-    float outerGlow = exp(-dist * 1.8) * 0.25;
+    float totalGlow = (core + innerGlow) * uIntensity;
     
-    // Subtle corona rays
-    float angle = atan(center.y, center.x);
-    float rays = 0.5 + 0.5 * sin(angle * 12.0);
-    rays *= exp(-dist * 2.5) * 0.1;
+    // White core blending into the chosen sun color
+    vec3 finalColor = mix(uColor, vec3(1.0, 1.0, 1.0), clamp(core * 2.0, 0.0, 1.0));
     
-    float totalGlow = (core + innerGlow + outerGlow + rays) * uIntensity;
-    
-    // White core blending into warm sun color
-    vec3 coreColor = vec3(1.0, 1.0, 1.0);
-    vec3 finalColor = mix(uColor, coreColor, core * 0.8 + innerGlow * 0.3) * totalGlow;
-    
+    // We let the post-processing Bloom handle the wide soft glow, avoiding any 8-bit banding rings
     float alpha = clamp(totalGlow, 0.0, 1.0);
+    float edgeFade = smoothstep(1.0, 0.6, dist); // Smoothly fade any remaining pixels before the square edge
     
-    // Smoothly fade to 0 before the edge of the square plane
-    float edgeFade = smoothstep(1.0, 0.8, dist);
-    alpha *= edgeFade;
-    
-    gl_FragColor = vec4(finalColor, alpha);
+    gl_FragColor = vec4(finalColor, alpha * edgeFade);
   }
 `;
 
@@ -66,7 +55,7 @@ export function Sun({ sunDirection, intensity, color, size }: SunProps) {
   const uniforms = useMemo(() => ({
     uColor: { value: sunColor },
     uIntensity: { value: intensity },
-  }), []);
+  }), [sunColor, intensity]);
 
   // Face the camera every frame & update uniforms
   useFrame(({ camera }) => {
