@@ -80,12 +80,12 @@ const earthFragmentShader = `
     float specAngle = max(dot(N, H), 0.0);
     float specular = pow(specAngle, 64.0) * spec * 1.2 * uSunIntensity;
 
-    // Final compositing
-    vec3 finalColor = mix(nightColor, litDay, dayFactor);
-    finalColor += uSunColor * specular * dayFactor;
+    // Dark side compositing — blend city lights with the day texture based on the slider
+    vec3 darkSideColor = nightColor + (dayColor * uDarkSideBrightness * 0.2); // scaled down slightly so 1.0 isn't blindingly bright
 
-    // Slight ambient so dark side isn't pure black
-    finalColor += dayColor * uDarkSideBrightness;
+    // Final compositing
+    vec3 finalColor = mix(darkSideColor, litDay, dayFactor);
+    finalColor += uSunColor * specular * dayFactor;
 
     gl_FragColor = vec4(finalColor, 1.0);
   }

@@ -157,10 +157,10 @@ export function ControlPanel(props: ControlPanelProps) {
                 label="Dark Side Vis."
                 value={props.earthDarkSideBrightness}
                 min={0}
-                max={0.1}
-                step={0.001}
+                max={1}
+                step={0.01}
                 onChange={props.setEarthDarkSideBrightness}
-                format={(v) => v.toFixed(3)}
+                format={(v) => v.toFixed(2)}
               />
               <div className="control-group">
                 <div className="color-controls">
