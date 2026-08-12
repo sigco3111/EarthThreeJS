@@ -1,4 +1,4 @@
-# 🌍 EarthThreeJS — 인터랙티브 지구 (한국어 한글판)
+# 🌍 EarthThreeJS — 인터랙티브 지구
 
 **React Three Fiber + Three.js + 커스텀 GLSL 셰이더 + GSAP** 기반의 **인터랙티브 행성 시각화** 입니다. 절차적 대기 / 오존, 자전하는 구름, 시네마틱 카메라 경로, 블룸 + 색수차 + 비네트 포스트프로세싱을 한 화면에서 GUI 로 실시간 조정할 수 있습니다. 본 저장소는 `achrefelouafi/EarthThreeJS` 의 **sigco3111 한국어 fork** 입니다 — 모든 컨트롤과 안내문을 한글로 제공하며, `src/i18n.ts` 가 한국어/영문 양쪽 키를 모두 보관합니다.
 
