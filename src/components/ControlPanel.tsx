@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { CINEMATIC_PATHS } from './CinematicCamera';
+import { t } from '../i18n';
 
 interface ControlPanelProps {
   // Earth
@@ -80,9 +81,9 @@ export function ControlPanel(props: ControlPanelProps) {
   if (!isVisible) return null;
 
   const tabs: { id: TabId; label: string; icon: string }[] = [
-    { id: 'earth', label: 'Earth', icon: '🌍' },
-    { id: 'effects', label: 'Effects', icon: '✨' },
-    { id: 'camera', label: 'Camera', icon: '🎬' },
+    { id: 'earth', label: t('tabEarth'), icon: '🌍' },
+    { id: 'effects', label: t('tabEffects'), icon: '✨' },
+    { id: 'camera', label: t('tabCamera'), icon: '🎬' },
   ];
 
   return (
@@ -90,9 +91,9 @@ export function ControlPanel(props: ControlPanelProps) {
       <div className="panel-header" onClick={() => setIsOpen(!isOpen)}>
         <div className="panel-title">
           <span className="panel-icon">⚙</span>
-          <span>Controls</span>
+          <span>{t('panelTitle')}</span>
         </div>
-        <button className="panel-toggle" aria-label="Toggle panel">
+        <button className="panel-toggle" aria-label={t('togglePanel')}>
           <svg
             width="12"
             height="12"
@@ -125,9 +126,9 @@ export function ControlPanel(props: ControlPanelProps) {
 
           {activeTab === 'earth' && (
             <div className="tab-content">
-              <div className="section-title">Time of Day</div>
+              <div className="section-title">{t('sectionTimeOfDay')}</div>
               <SliderControl
-                label="Day/Night"
+                label={t('dayNight')}
                 value={props.dayNightProgress}
                 min={0}
                 max={1}
@@ -135,7 +136,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setDayNightProgress}
               />
               <SliderControl
-                label="Sun Intensity"
+                label={t('sunIntensity')}
                 value={props.sunIntensity}
                 min={0}
                 max={5}
@@ -143,7 +144,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setSunIntensity}
               />
               <SliderControl
-                label="Sun Size"
+                label={t('sunSize')}
                 value={props.sunSize}
                 min={2}
                 max={40}
@@ -151,7 +152,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setSunSize}
               />
               <SliderControl
-                label="Earth Speed"
+                label={t('earthSpeed')}
                 value={props.earthSpeed}
                 min={0}
                 max={0.005}
@@ -160,7 +161,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 format={(v) => v.toFixed(4)}
               />
               <SliderControl
-                label="Dark Side Vis."
+                label={t('darkSideVis')}
                 value={props.earthDarkSideBrightness}
                 min={0}
                 max={1}
@@ -169,7 +170,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 format={(v) => v.toFixed(2)}
               />
               <SliderControl
-                label="Night Lights"
+                label={t('nightLights')}
                 value={props.earthNightLights}
                 min={0}
                 max={10}
@@ -178,14 +179,14 @@ export function ControlPanel(props: ControlPanelProps) {
               />
               <div className="control-group">
                 <div className="color-controls">
-                  <ColorPicker label="Sun Color" value={props.sunColor} onChange={props.setSunColor} />
+                  <ColorPicker label={t('sunColor')} value={props.sunColor} onChange={props.setSunColor} />
                 </div>
               </div>
 
               <div className="control-divider" />
-              <div className="section-title">Atmosphere / Ozone</div>
+              <div className="section-title">{t('sectionAtmosphere')}</div>
               <SliderControl
-                label="Lit Opacity"
+                label={t('atmosphereLitOpacity')}
                 value={props.atmosphereOpacity}
                 min={0}
                 max={1}
@@ -193,7 +194,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setAtmosphereOpacity}
               />
               <SliderControl
-                label="Dark Opacity"
+                label={t('atmosphereDarkOpacity')}
                 value={props.atmosphereDarkOpacity}
                 min={0}
                 max={1}
@@ -201,7 +202,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setAtmosphereDarkOpacity}
               />
               <SliderControl
-                label="Fresnel Power"
+                label={t('atmosphereFresnel')}
                 value={props.atmosphereFresnel}
                 min={0.5}
                 max={8}
@@ -209,7 +210,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setAtmosphereFresnel}
               />
               <SliderControl
-                label="Glow Intensity"
+                label={t('atmosphereGlow')}
                 value={props.atmosphereIntensity}
                 min={0}
                 max={5}
@@ -218,14 +219,14 @@ export function ControlPanel(props: ControlPanelProps) {
               />
               <div className="control-group">
                 <div className="color-controls">
-                  <ColorPicker label="Atmos Color" value={props.atmosphereColor} onChange={props.setAtmosphereColor} />
+                  <ColorPicker label={t('atmosphereColor')} value={props.atmosphereColor} onChange={props.setAtmosphereColor} />
                 </div>
               </div>
 
               <div className="control-divider" />
-              <div className="section-title">Clouds</div>
+              <div className="section-title">{t('sectionClouds')}</div>
               <SliderControl
-                label="Lit Opacity"
+                label={t('cloudLitOpacity')}
                 value={props.cloudOpacity}
                 min={0}
                 max={1}
@@ -233,7 +234,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setCloudOpacity}
               />
               <SliderControl
-                label="Dark Opacity"
+                label={t('cloudDarkOpacity')}
                 value={props.cloudDarkOpacity}
                 min={0}
                 max={1}
@@ -241,7 +242,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setCloudDarkOpacity}
               />
               <SliderControl
-                label="Speed"
+                label={t('cloudSpeed')}
                 value={props.cloudSpeed}
                 min={0}
                 max={0.005}
@@ -254,14 +255,14 @@ export function ControlPanel(props: ControlPanelProps) {
 
           {activeTab === 'effects' && (
             <div className="tab-content">
-              <div className="section-title">Environment</div>
+              <div className="section-title">{t('sectionEnvironment')}</div>
               <div className="control-group">
                 <div className="color-controls">
-                  <ColorPicker label="Space Color" value={props.spaceColor} onChange={props.setSpaceColor} />
+                  <ColorPicker label={t('spaceColor')} value={props.spaceColor} onChange={props.setSpaceColor} />
                 </div>
               </div>
               <SliderControl
-                label="Stars Count"
+                label={t('starsCount')}
                 value={props.starsCount}
                 min={0}
                 max={20000}
@@ -269,9 +270,9 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setStarsCount}
               />
               <div className="control-divider" />
-              <div className="section-title">Bloom</div>
+              <div className="section-title">{t('sectionBloom')}</div>
               <SliderControl
-                label="Intensity"
+                label={t('bloomIntensity')}
                 value={props.bloomIntensity}
                 min={0}
                 max={5}
@@ -279,7 +280,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setBloomIntensity}
               />
               <SliderControl
-                label="Threshold"
+                label={t('bloomThreshold')}
                 value={props.bloomThreshold}
                 min={0}
                 max={2}
@@ -287,7 +288,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 onChange={props.setBloomThreshold}
               />
               <SliderControl
-                label="Smoothing"
+                label={t('bloomSmoothing')}
                 value={props.bloomRadius}
                 min={0}
                 max={2}
@@ -296,9 +297,9 @@ export function ControlPanel(props: ControlPanelProps) {
               />
 
               <div className="control-divider" />
-              <div className="section-title">Film Effects</div>
+              <div className="section-title">{t('sectionFilmEffects')}</div>
               <SliderControl
-                label="Chromatic Aberration"
+                label={t('chromaticAberration')}
                 value={props.chromaticAberration}
                 min={0}
                 max={0.01}
@@ -307,7 +308,7 @@ export function ControlPanel(props: ControlPanelProps) {
                 format={(v) => v.toFixed(4)}
               />
               <SliderControl
-                label="Vignette"
+                label={t('vignette')}
                 value={props.vignetteIntensity}
                 min={0}
                 max={1.5}
@@ -324,18 +325,18 @@ export function ControlPanel(props: ControlPanelProps) {
                 onClick={handleCinematicToggle}
               >
                 <span className="cinematic-icon">{props.cinematicMode ? '⏸' : '▶'}</span>
-                <span>{props.cinematicMode ? 'Stop Cinematic' : 'Start Cinematic'}</span>
+                <span>{props.cinematicMode ? t('stopCinematic') : t('startCinematic')}</span>
               </button>
 
               {props.cinematicMode && props.currentPath && (
                 <div className="current-path">
-                  <span className="path-label">Current Shot:</span>
+                  <span className="path-label">{t('currentShotLabel')}</span>
                   <span className="path-name">{props.currentPath}</span>
                 </div>
               )}
 
               <div className="camera-paths">
-                <div className="section-title">Camera Paths</div>
+                <div className="section-title">{t('cameraPaths')}</div>
                 {CINEMATIC_PATHS.map((path, i) => (
                   <div key={i} className="path-item">
                     <span className="path-number">{String(i + 1).padStart(2, '0')}</span>
@@ -350,7 +351,7 @@ export function ControlPanel(props: ControlPanelProps) {
               <div className="control-divider" />
               <div className="camera-tip">
                 <span className="tip-icon">💡</span>
-                <span>Use mouse to orbit, scroll to zoom. Press <kbd>H</kbd> to hide controls.</span>
+                <span dangerouslySetInnerHTML={{ __html: t('cameraTip') }} />
               </div>
             </div>
           )}

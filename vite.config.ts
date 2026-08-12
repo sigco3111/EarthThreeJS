@@ -8,4 +8,8 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  base: '/EarthThreeJS/',
+  server: {
+    port: 5175,
+  },
 })

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { EarthScene } from './components/EarthScene';
 import { ControlPanel } from './components/ControlPanel';
+import { t } from './i18n';
 import './App.css';
 
 function App() {
@@ -108,28 +109,28 @@ function App() {
         <div className="title-overlay">
           <div className="title-content">
             <h1 className="title-main">
-              <span className="title-the">The</span>
-              <span className="title-earth">Earth</span>
+              <span className="title-the">{t('titleThe')}</span>
+              <span className="title-earth">{t('titleEarth')}</span>
             </h1>
-            <p className="title-subtitle">An Interactive Planetary Visualization</p>
-            <p className="title-tech">Built with Three.js • React • Custom GLSL Shaders</p>
+            <p className="title-subtitle">{t('titleSubtitle')}</p>
+            <p className="title-tech">{t('titleTech')}</p>
             <button className="title-button" onClick={handleStart}>
               <span className="button-glow" />
-              <span className="button-text">Explore Our World</span>
+              <span className="button-text">{t('exploreButton')}</span>
             </button>
           </div>
           <div className="title-stats">
             <div className="stat">
               <span className="stat-value">12,742</span>
-              <span className="stat-label">Diameter (km)</span>
+              <span className="stat-label">{t('statDiameter')}</span>
             </div>
             <div className="stat">
               <span className="stat-value">4.5B</span>
-              <span className="stat-label">Years Old</span>
+              <span className="stat-label">{t('statAge')}</span>
             </div>
             <div className="stat">
               <span className="stat-value">8B+</span>
-              <span className="stat-label">Inhabitants</span>
+              <span className="stat-label">{t('statInhabitants')}</span>
             </div>
           </div>
         </div>
@@ -144,7 +145,7 @@ function App() {
           </div>
           {currentPath && (
             <div className="cinematic-info">
-              <span className="cinematic-label">CINEMATIC</span>
+              <span className="cinematic-label">{t('cinematicLabel')}</span>
               <span className="cinematic-path-name">{currentPath}</span>
             </div>
           )}
@@ -207,9 +208,9 @@ function App() {
       {/* Watermark */}
       {!showTitle && (
         <div className="watermark">
-          <span className="watermark-text">Earth</span>
+          <span className="watermark-text">{t('watermark')}</span>
           <span className="watermark-dot">•</span>
-          <span className="watermark-tech">Three.js</span>
+          <span className="watermark-tech">{t('watermarkTech')}</span>
         </div>
       )}
     </div>
