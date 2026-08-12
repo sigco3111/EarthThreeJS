@@ -47,7 +47,7 @@ export function Clouds({ speed, opacity, darkOpacity, sunDirection }: CloudsProp
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
-  const cloudsMap = useLoader(THREE.TextureLoader, '/8k_earth_clouds.jpg');
+  const cloudsMap = useLoader(THREE.TextureLoader, `${import.meta.env.BASE_URL}8k_earth_clouds.jpg`);
 
   useFrame(() => {
     if (meshRef.current) {

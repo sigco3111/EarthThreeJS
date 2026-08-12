@@ -98,10 +98,10 @@ export function Earth({ sunDirection, sunIntensity, sunColor, darkSideBrightness
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
   const [dayMap, nightMap, normalMap, specularMap] = useLoader(THREE.TextureLoader, [
-    '/8k_earth_daymap.jpg',
-    '/8k_earth_nightmap.jpg',
-    '/8k_earth_normal_map.jpg',
-    '/8k_earth_specular_map.jpg',
+    `${import.meta.env.BASE_URL}8k_earth_daymap.jpg`,
+    `${import.meta.env.BASE_URL}8k_earth_nightmap.jpg`,
+    `${import.meta.env.BASE_URL}8k_earth_normal_map.jpg`,
+    `${import.meta.env.BASE_URL}8k_earth_specular_map.jpg`,
   ]);
 
   useMemo(() => {
